@@ -1,27 +1,28 @@
 # == Schema Information
 #
-# Table name: properties
+# Table name: sponsorships
 #
-#  id         :uuid             not null, primary key
-#  user_id    :uuid
-#  name       :string           default(""), not null
-#  url        :string           default(""), not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id               :uuid             not null, primary key
+#  property_id      :uuid
+#  campaign_id      :uuid
+#  token            :string           not null
+#  bid_amount_cents :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
 #
 
-class Property < ApplicationRecord
+class Sponsorship < ApplicationRecord
   # extends ...................................................................
   # includes ..................................................................
 
   # relationships .............................................................
-  belongs_to :user
   has_many :impressions
   has_many :clicks
+  belongs_to :campaign
+  belongs_to :property
 
   # validations ...............................................................
-  validates :name, presence: true
-  validates :url, presence: true
+  validates :token, presence: true, uniqueness: true
 
   # callbacks .................................................................
   # scopes ....................................................................

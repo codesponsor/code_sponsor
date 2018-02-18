@@ -5,7 +5,7 @@ ruby "2.4.1"
 
 gem "dotenv-rails", group: [:development, :test], require: "dotenv/rails-now"
 
-gem "administrate", "0.8.1"
+gem "activeadmin",  "1.2.1"
 gem "bootsnap",     "1.1.8", require: false
 gem "coffee-rails", "4.2.2"
 gem "devise",       "4.3.0"

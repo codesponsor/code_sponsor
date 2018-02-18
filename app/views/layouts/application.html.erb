@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CodeSponsor</title>
+    <title>Code Sponsor</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,6 +9,12 @@
   </head>
 
   <body>
+    <% if current_user %>
+      <%= link_to "Logout", new_user_session_path %>
+    <% else %>
+      <%= link_to "Login", new_user_session_path %>
+    <% end %>
+    
     <%= yield %>
   </body>
 </html>
