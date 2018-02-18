@@ -1,7 +1,5 @@
 class ReactAppController < ApplicationController
   def index
-    @props = {
-      
-    }
+    render layout: false
   end
 end
