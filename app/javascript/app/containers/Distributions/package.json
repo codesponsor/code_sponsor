@@ -1,0 +1,6 @@
+{
+  "name": "Distributions",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./Distributions.js"
+}
