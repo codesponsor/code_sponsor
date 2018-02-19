@@ -16,6 +16,11 @@ export default {
       icon: 'fal fa-handshake'
     },
     {
+      name: 'Campaigns',
+      url: '/campaigns',
+      icon: 'fal fa-bullhorn'
+    },
+    {
       name: 'Distributions',
       url: '/distributions',
       icon: 'fal fa-money-bill'
