@@ -3,4 +3,13 @@
 
 require_relative "config/application"
 
+require "graphql/rake_task"
+
 Rails.application.load_tasks
+
+GraphQL::RakeTask.new(
+  schema_name: "CodeSponsorSchema",
+  directory: "./app/javascript/app/.",
+  idl_outfile: "schema.graphql",
+  json_outfile: "schema.json",
+)

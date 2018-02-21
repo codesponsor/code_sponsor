@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { gql } from 'apollo-boost';
+import { Query } from 'react-apollo';
 import {
   Badge,
   Row,
@@ -12,68 +14,54 @@ import {
   PaginationItem,
   PaginationLink
 } from 'reactstrap';
+import PropertyCard from './PropertyCard';
+import { default as LIST_PROPERTIES } from '../../queries/properties/list';
 
-class Properties extends Component {
-  render() {
-    return (
-      <div className="animated fadeIn">
-        <Card>
-          <CardHeader>
-            <i className="fa fa-align-justify"></i> Properties
-            <Link className="btn btn-primary btn-sm pull-right" to="/properties/new">Add Property</Link>
-          </CardHeader>
-          <CardBody>
-            <Table responsive>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>URL</th>
-                  <th className="text-center">Impressions</th>
-                  <th className="text-center">Clicks</th>
-                  <th />
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>jsbin</td>
-                  <td><a href="https://jsbin.com" target="_blank">https://jsbin.com</a></td>
-                  <td className="text-center">33,291</td>
-                  <td className="text-center">2,095</td>
-                  <td className="text-right">
-                    <Link to="/properties/jsbin" className="btn btn-sm btn-outline-primary">View</Link>
-                    &nbsp;
-                    <Link to="/properties/jsbin/edit" className="btn btn-sm btn-outline-info">Edit</Link>
-                  </td>
-                </tr>
-                <tr>
-                  <td>jsbin</td>
-                  <td><a href="https://jsbin.com" target="_blank">https://jsbin.com</a></td>
-                  <td className="text-center">33,291</td>
-                  <td className="text-center">2,095</td>
-                  <td className="text-right">
-                    <Link to="/properties/jsbin" className="btn btn-sm btn-outline-primary">View</Link>
-                    &nbsp;
-                    <Link to="/properties/jsbin/edit" className="btn btn-sm btn-outline-info">Edit</Link>
-                  </td>
-                </tr>
-                <tr>
-                  <td>jsbin</td>
-                  <td><a href="https://jsbin.com" target="_blank">https://jsbin.com</a></td>
-                  <td className="text-center">33,291</td>
-                  <td className="text-center">2,095</td>
-                  <td className="text-right">
-                    <Link to="/properties/jsbin" className="btn btn-sm btn-outline-primary">View</Link>
-                    &nbsp;
-                    <Link to="/properties/jsbin/edit" className="btn btn-sm btn-outline-info">Edit</Link>
-                  </td>
-                </tr>
-              </tbody>
-            </Table>
-          </CardBody>
-        </Card>
-      </div>
-    );
-  }
+const renderProperties = (properties) => {
+  return properties.map((property) =>
+    <Col xs="12" sm="6" lg="3" key={`property-${property.id}`}>
+      <PropertyCard property={property}>
+        <Row className="mt-3">
+          <Col>
+            <Link className="btn btn-sm btn-outline-primary btn-block" to={`/properties/${property.id}`}>Details</Link>
+          </Col>
+          <Col>
+            <Link className="btn btn-sm btn-outline-secondary btn-block" to={property.url} target="_blank">Visit</Link>
+          </Col>
+        </Row>
+      </PropertyCard>
+    </Col>
+  );
 }
+
+const Properties = () => (
+  <Query query={LIST_PROPERTIES}>
+    {({ loading, error, data }) => {
+      if (loading) return <div>Loading...</div>;
+      if (error) {
+        console.log(error);
+        return <div>Error :(</div>;
+      }
+
+      return (
+        <div className="animated fadeIn">
+          <Row>
+            {renderProperties(data.allProperties)}
+            <Col xs="12" sm="6" lg="3" key={`property-new`}>
+              <Card>
+                <CardBody style={{ height: 200 }}>
+                  <Link to="/properties/new" className="align-middle mt-5 btn btn-lg btn-link btn-block">
+                    <i className="fal fa-plus mr-2" />
+                    Add New Property
+                  </Link>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        </div>
+      );
+    }}
+  </Query>
+);
 
 export default Properties;

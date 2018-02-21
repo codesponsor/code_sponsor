@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
+
+  post "/graphql", to: "graphql#execute"
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
@@ -12,14 +17,18 @@ Rails.application.routes.draw do
     sign_up: "cmon_let_me_in"
   }
 
-  root to: "home#index"
-
   resources :clicks
   resources :impressions
   resources :sponsorships
   resources :campaigns
 
   get "/styleguide", to: "react_app#styleguide", as: :styleguide
+
+  authenticated :user do
+    root to: "react_app#index"
+  end
+
+  root to: "home#index"
 
   get "*path", to: "react_app#index", as: :react_app
 end

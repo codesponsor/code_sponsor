@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Container } from 'reactstrap';
 
+// Apollo / GraphQL
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
+
 // Components
 import Header from '../../components/Header/';
 import Sidebar from '../../components/Sidebar/';
@@ -18,33 +22,38 @@ import Sponsors from '../Sponsors/';
 import Campaigns from '../Campaigns/';
 import Profile from '../Profile/';
 
+// Apollo Configuration and Client
+const client = new ApolloClient();
+
 class App extends Component {
   render() {
     return (
-      <div className="app">
-        <Header />
-        <div className="app-body">
-          <Sidebar {...this.props} />
-          <main className="main">
-            <Breadcrumb />
-            <Container fluid>
-              <Switch>
-                <Route path="/dashboard" name="Dashboard" component={Dashboard} />
-                <Route exact strict path="/properties" name="Properties" component={Properties} />
-                <Route path="/properties/new" name="Property Form" component={PropertyForm} />
-                <Route path="/properties/:propertyId" name="Property" component={Property} />
-                <Route path="/properties/:propertyId/edit" name="Edit Property" component={PropertyForm} />
-                <Route path="/distributions" name="Distributions" component={Distributions} />
-                <Route path="/sponsors" name="Sponsors" component={Sponsors} />
-                <Route path="/campaigns" name="Campaigns" component={Campaigns} />
-                <Route path="/profile" name="Profile" component={Profile} />
-                <Redirect from="/" to="/dashboard" />
-              </Switch>
-            </Container>
-          </main>
+      <ApolloProvider client={client}>
+        <div className="app">
+          <Header />
+          <div className="app-body">
+            <Sidebar {...this.props} />
+            <main className="main">
+              <Breadcrumb />
+              <Container fluid>
+                <Switch>
+                  <Route path="/dashboard" name="Dashboard" component={Dashboard} />
+                  <Route exact strict path="/properties" name="Properties" component={Properties} />
+                  <Route path="/properties/new" name="Property Form" component={PropertyForm} />
+                  <Route path="/properties/:propertyId" name="Property" component={Property} />
+                  <Route path="/properties/:propertyId/edit" name="Edit Property" component={PropertyForm} />
+                  <Route path="/distributions" name="Distributions" component={Distributions} />
+                  <Route path="/sponsors" name="Sponsors" component={Sponsors} />
+                  <Route path="/campaigns" name="Campaigns" component={Campaigns} />
+                  <Route path="/profile" name="Profile" component={Profile} />
+                  <Redirect from="/" to="/dashboard" />
+                </Switch>
+              </Container>
+            </main>
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
+      </ApolloProvider>
     );
   }
 }

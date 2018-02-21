@@ -1,0 +1,38 @@
+input AUTH_PROVIDER_TOKEN {
+  token: String!
+}
+
+type Mutation {
+  createProperty(name: String!, url: String!): Property
+  signInUser(token: AUTH_PROVIDER_TOKEN!): SignInPayload
+}
+
+type Property {
+  id: ID!
+  name: String!
+  url: String!
+  user: User
+}
+
+input PropertyFilter {
+  OR: [PropertyFilter]
+  name_contains: String
+  url_contains: String
+}
+
+type Query {
+  allProperties(filter: PropertyFilter, first: Int, skip: Int): [Property]!
+}
+
+type SignInPayload {
+  token: String
+  user: User
+}
+
+type User {
+  email: String!
+  first_name: String!
+  id: ID!
+  last_name: String!
+  properties: [Property]!
+}

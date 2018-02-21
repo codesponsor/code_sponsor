@@ -57,6 +57,12 @@ class User < ApplicationRecord
 
   # class methods .............................................................
   class << self
+    def find_by_token(input_token)
+      crypt = ActiveSupport::MessageEncryptor.new(Rails.application.secret_key_base.byteslice(0..31))
+      token = crypt.decrypt_and_verify input_token
+      user_id = token.gsub("user-id:", "")
+      find_by id: user_id
+    end
   end
 
   # public instance methods ...................................................
@@ -71,6 +77,11 @@ class User < ApplicationRecord
     else
       email
     end
+  end
+
+  def token
+    crypt = ::ActiveSupport::MessageEncryptor.new(Rails.application.secret_key_base.byteslice(0..31))
+    crypt.encrypt_and_sign("user-id:#{ id }")
   end
 
   # protected instance methods ................................................

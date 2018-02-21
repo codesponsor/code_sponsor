@@ -3,6 +3,7 @@ class ReactAppController < ApplicationController
   layout "react_app"
 
   def index
+    @token = current_user.token
   end
 
   def styleguide

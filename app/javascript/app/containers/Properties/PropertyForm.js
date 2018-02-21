@@ -40,7 +40,7 @@ class PropertyForm extends Component {
             <Input type="text" id="url" placeholder="https://" />
           </FormGroup>
           <div className="form-actions">
-            <Button type="submit" color="primary">Save Property</Button>
+            <Button type="submit" color="primary" className="mr-2">Save Property</Button>
             <Button color="secondary">Cancel</Button>
           </div>
         </CardBody>

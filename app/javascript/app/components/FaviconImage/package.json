@@ -1,0 +1,6 @@
+{
+  "name": "FaviconImage",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./FaviconImage.js"
+}

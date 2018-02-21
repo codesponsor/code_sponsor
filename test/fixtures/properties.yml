@@ -1,21 +1,21 @@
-# == Schema Information
-#
-# Table name: properties
-#
-#  id         :uuid             not null, primary key
-#  user_id    :uuid
-#  name       :string           default(""), not null
-#  url        :string           default(""), not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
+# # == Schema Information
+# #
+# # Table name: properties
+# #
+# #  id         :uuid             not null, primary key
+# #  user_id    :uuid
+# #  name       :string           default(""), not null
+# #  url        :string           default(""), not null
+# #  created_at :datetime         not null
+# #  updated_at :datetime         not null
+# #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  url: MyString
+# one:
+#   name: MyString
+#   url: MyString
 
-two:
-  name: MyString
-  url: MyString
+# two:
+#   name: MyString
+#   url: MyString

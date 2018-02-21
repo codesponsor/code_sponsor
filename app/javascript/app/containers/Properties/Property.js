@@ -27,11 +27,8 @@ class Property extends Component {
   render() {
     return (
       <Card>
-        <CardHeader>
-          <i className="fa fa-align-justify"></i> Property
-          <Link className="btn btn-primary btn-sm pull-right" to="/properties/jsbin/edit">Edit Property</Link>
-        </CardHeader>
         <CardBody>
+          <Link className="btn btn-outline-primary btn-sm pull-right" to="/properties/jsbin/edit">Edit Property</Link>
           <h3>Property</h3>
         </CardBody>
       </Card>
